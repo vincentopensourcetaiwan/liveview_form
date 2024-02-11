@@ -5,18 +5,20 @@ defmodule LiveviewFormWeb.HomeLive do
     ~H"""
     <h1>Welcome to Phoenix!</h1>
     <form phx-submit="submit">
-      <input type="number" name="length" value="1" />
+      <input type="number" name="length" value={@length} />
       <.button>Save</.button>
     </form>
+    The length is <%= @length %>
     """
   end
 
   def mount(_params, _session, socket) do
+    socket = assign(socket, length: 1)
     {:ok, socket}
   end
 
   def handle_event("submit", %{"length" => length}, socket) do
-    IO.inspect(length)
+    socket = assign(socket, length: length)
     {:noreply, socket}
   end
 end
